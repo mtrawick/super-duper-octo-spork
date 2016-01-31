@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		 <link rel="stylesheet" href="navBar.css">
+		 <link rel="stylesheet" href="outline.css">
+		 <link rel="stylesheet" href="contentContainer.css">
+		<title>
+			WAPlots Outline
+		</title>
+	</head>
+		<body>
+			<div id='header'>
+			<p>Search <input id='search-input' class='very-wide' type='text'></input></p>
+			<div class="search-btn" id='search'>
+						<a href="#">Go</a>
+			</div>
+		     </div>
+			 <div id='nav-bar'>
+				<div id="wrapper"> 
+					<ul class="menu">
+						<li class="item1"><a href="#" id="Example">Full Examples <span id="numExamples"></span></a>
+							<ul id="example-list">
+								
+							</ul>
+						</li>
+						<li class="item2"><a href="#" id="Template">Templates <span id="numTemplates"></span></a>
+							<ul id="template-list">
+								
+							</ul>
+						</li>						
+						<li class="item3"><a href="#" id="Detail">Details <span id="numDetails"></span></a>
+							<ul id="detail-list">
+								
+							</ul>
+						</li>
+					</ul>
+ 
+				</div>
+			 </div>
+			 
+			 <div class="user-code">
+				<p> Waplot Code<p>
+				<textarea id="waplot-box" rows="6" placeholder="Use a template or add details to generate waplot code"></textarea>
+			 </div>
+			 
+			 <div class="content-wrapper">
+				<div class="content-container dne">
+					<div class="content-description">
+						<h3></h3>
+						<p></p>
+						<p></p>
+					</div>			
+					<div class="btn">
+						<a href="#">Get Code</a>
+					</div>
+						
+					<div class="content-picture">
+						<img src="" >
+					</div>
+				</div>
+			</div>
+			
+			
+			
+			
+			
+			
+		
+			<script src="jquery-1.11.3.min.js"></script>
+			<script src="contentObj.js"></script>
+		</body>
+</html>
