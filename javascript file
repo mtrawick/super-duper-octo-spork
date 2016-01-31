@@ -1,0 +1,277 @@
+
+
+/*
+*    In this file I want to ....
+*/
+var allTheContent = [];
+var allTheContent = getAllContent();
+
+function getAllContent() {
+	
+		// Define the content and put it into an array. Make sure you change the id when adding new content.
+		var array = [];
+		// Here's the trig example...
+		var one = new Object();
+		one.id = 0;
+		one.type = "Example";
+		one.description = "Used in OsPreCalc1 6.1.007, here's an example of a trig function. It uses the Table command to specify the ticklabels, location of ticks, and gridlines.";
+		one.title = "Trig Function: -5 sin(x)";
+		one.hotkey = "";
+		one.keywords = "gridlines, trig, tickmarks, sin, axeslabel, fraction ticklabels, ";
+		one.image_name = "TrigFullExamp.PNG";
+		one.getCode = function getCode() {
+			 var code = '';
+			 code = 'xRange = 2 Pi; yRange = 8; Plot[-5 Sin[x], {x, -xRange, xRange}, AspectRatio -> 1, PlotRange -> {{-xRange - xRange/20, xRange + xRange/20}, {-yRange - yRange/20, yRange + yRange/20}}, Ticks -> {Table[i, {i, -xRange, xRange, xRange/4}], Table[i, {i, -yRange, yRange, yRange/4}]}, GridLines -> {Table[i, {i, -xRange, xRange, xRange/8}], Table[i, {i, -yRange, yRange, yRange/8}]}, GridLinesStyle -> {{Gray, Opacity[.3]}, {Gray, Opacity[.3]}}, PlotStyle -> Directive[RGBColor[19/255, 68/255, 121/255], Thick], Axes -> True, AxesOrigin -> {0, 0}, Frame -> False, TicksStyle -> {16, 14}, AxesLabel -> {Style["x", Black, 14], Style["y", Black, 14]}]';
+			 return code;
+		};
+	
+		array[0] = one;
+		
+		/*
+		// Here's the axes label example...
+		var two = new Object();
+		two.id = 1;
+		two.type = "Detail";
+		two.description = "The get code button brings up an example of labeling the horizontal x and the vertical y while specifying the color be black and size 14 font.";
+		two.title = "Axes Labels";
+		two.hotkey = "xslb";
+		two.keywords = "detail, style axis label, axis";
+		two.image_name = "AxesLabel.PNG";
+		two.getCode = function getCode() {
+			 var code = '';
+		     code = 'AxesLabel -> {Style[x, Black, 14], Style[y, Black, 14]}';
+			 return code;
+		};
+		array[1] = two;
+		
+		// Here's the simplest function template...
+		var three = new Object();
+		three.id = 2;
+		three.type = "Template";
+		three.description = "A single function plotted in a square viewing window. As simple as it gets. Mathematica on its own decides where to draw tickmarks and add tick labels.";
+		three.title = "Square View Centered at Origin";
+		three.hotkey = "pltfnc;";
+		three.keywords = "template, easy, function, ham sandwich, square, centered at origin";
+		three.image_name = "FuncCenterSquare.PNG";
+		// How to build the input boxes for the template. A string to be used as input in the .html() command.
+		three.build_inputs = "<div class=\"content-gui\" id='inputsDiv"+three.id+"'><h4>Parameters</h4><p class='input wide'>y = <input type=\"text\"> <p><p class='input'>Max x-value: <input type=\"text\"> <p></div>"; 
+		// The getCode function uses an array of the input fields from the clicked on content. 
+		three.getCode = function (inputFields) {
+			 // var inputFields = $( ".content-gui input" ).get();
+			 var func = inputFields[0].value; // variables are named after the contents in the input boxes.
+			 var maxX = inputFields[1].value;
+				
+			 code = "p1 = Plot[{" + func;
+			 code = code + "}, {x, -" + maxX + ", " + maxX;
+		     code = code + "},PlotStyle -> {Directive[Thick,Black]}]; Show[p1, PlotRange -> {{ -" + maxX + ", " + maxX;
+			 code = code + "}, {-" + maxX + ", " + maxX + "}}, AspectRatio -> 1]";
+			 code = "<waplot type=\'MathematicaSyntax\'>" + code + '</waplot>';
+			 return code;
+		};
+		array[2] = three;
+		
+		// Here's the polar function template...
+		/*
+		var four = new Object();
+		four.id = 3;
+		four.type = "Template";
+		four.description = "Draw a polar function on the polar coordinate plane. Drawing lots of circles may be taxing on the server.";
+		four.title = "Polar Functions";
+		four.hotkey = "plpl; and plplv;";
+		four.keywords = "template, easy, polar function, radians, flower, polar coordinates";
+		four.image_name = "PolarTemplate.PNG";
+		// How to build the input boxes for the template. A string to be used as input in the .html() command.
+		four.build_inputs = "<div class=\"content-gui\" id='inputsDiv"+four.id+"'><h4>Parameters</h4><p class='input wide'>r = <input type='text'> (use 'theta' as the independent variable)<p><p class='input'>Min theta <input type='text'> <p><p class='input'>Max theta <input type='text'> <p><p class='input'>Number of gridcircles <input type='text'><p><p class='input'>Angle between gridlines <input type='text'> (use radians) <p><p class='input'>Distance between adjacent gridcircles <input type='text'> <p> </div>"; 
+		// The getCode function uses an array of the input fields from the clicked on content. 
+		four.getCode = function (inputFields) {
+			 // var inputFields = $( ".content-gui input" ).get();
+			 var func = inputFields[0].value; // variables are named after the contents in the input boxes.
+			 var minTheta = inputFields[1].value;
+			 var maxTheta = inputFields[2].value;
+			 var numGCirc = inputFields[3].value;
+			 var angBetGLines = inputFields[4].value;
+			 var distBetGCirc = inputFields[5].value;
+			 var radius = numGCirc*distBetGCirc;
+			 var code = "";	
+			/* code = code + "p3 = PolarPlot[{" + func + "}, {theta, " + minTheta + ", " + maxTheta + "}, PlotStyle -> {Directive[RGBColor[19/255, 68/255, 121/255], Thick]}, Frame -> False];";
+			 code = code + "p1 = PolarPlot[Table[i*" + distBetGCirc + ", {i, 1, " + numGCirc + ", 1}], {theta, 0, 2 Pi}, PlotStyle -> {Directive[RGBColor[215/255, 215/255, 215/255], Thick]}, Frame -> False];"
+			 code = code + "p2 = Plot[Complement[Table[x*Tan[i], {i, " + angBetGLines + ", Pi - " + angBetGLines + ", " + angBetGLines + "}], {ComplexInfinity}], {x, -" + radius + ", " + radius + "}, PlotStyle -> Directive[RGBColor[225/255, 225/255, 225/255], Thick], PlotRange -> {{-" + radius + ", " + radius + "}, {-" + radius + ", " + radius + "}}, Frame -> False]";
+			 code = code + "p4 = RegionPlot[x^2 + y^2 > (" + radius + " + .05)^2, {x, -" + radius + " - 5, " + radius + " + 5}, {y, -" + radius + " - 5, " + radius + " + 5}, PlotStyle -> {Directive[White]}]; Show[p1, p2, p4, p3, PlotRange -> {{-" + radius + " - " + radius + "*.07, " + radius + " + " + radius + "*.07}, {-" + radius + " - " + radius + "*.07, " + radius + " + " + radius + "*.07}}, AspectRatio -> 1, Ticks -> {Table[i*$scale, {i, 0, " + numGCirc + ", 1}], None}, TicksStyle -> Directive[Black, 12], AxesLabel -> {Style[0, 14], Style[Pi/2, 16]}]";
+			 code = "<waplot type=\'MathematicaSyntax\'>" + code + '</waplot>';
+			 
+			 return code;
+		};
+		array[3] = four;
+		*/
+		
+		return array;
+		
+		// Here's the template example
+		
+} // End getAllContent
+
+var main = function() {
+	
+	
+	 var menu_ul = $('.menu > li > ul'),
+        menu_a  = $('.menu > li > a'),
+		sub_item = $('.menu > li > ul > li > a');
+    
+    menu_ul.hide(); 
+	
+	
+	
+	
+	
+	
+	// Use the given list of content objects to populate the nav bar menu.
+	function populateNavBar(content) {
+		// First clear the navbar of all its content.
+		$('#detail-list').children().remove();
+		$('#example-list').children().remove();
+		$('#template-list').children().remove();
+		
+		
+		// Keep track of how many of each type there are so you can display the count
+		var detailCount = 0; 
+		var exampleCount = 0; 
+		var templateCount = 0; 
+		
+		for (var i in content) {
+		
+			// Determine what type each entry is and add it to the correct html element 
+			switch (content[i].type) {
+				case "Detail":
+					detailCount++;
+					$('#detail-list').append("<li><a href=\"#\">" + content[i].title + "</a></li>");
+					break;
+				case "Example":
+					exampleCount++;
+					$('#example-list').append("<li><a href=\"#\">" + content[i].title + "</a></li>");
+					break;
+				case "Template":
+					templateCount++;
+					$('#template-list').append("<li><a href=\"#\">" + content[i].title + "</a></li>");
+					break;
+			}
+		}
+		// Change the values in the spans to indicate how many of each type there are
+			$('#numDetails').text(detailCount);
+			$('#numExamples').text(exampleCount);
+			$('#numTemplates').text(templateCount);
+	} // End populateNavBar
+
+	// Takes a list of the contentObj.id 's, gets rid of all contentObj's being displayed, and displays given specified contentObj's. 
+	function replaceAndDisplayContent(listOfIds) {
+		$(".content-container.dne").siblings().remove();
+		for (var i in listOfIds){
+			appendContent(allTheContent[listOfIds[i]].id);
+		}
+		
+	} // End replaceAndDisplayContent()
+	
+	// Appends the contentObj associated with the given contentObj.id
+	function appendContent(idToBeDisplayed) {
+		var copy = new Object(); // The DOM element that will be filled out and inserted into the page.
+		var innerDivs = new Object();
+		var htmlString = ""; // String that will eventually be input into the .html() command to create the div tag
+		copy = $(".content-container.dne").clone();
+		copy.removeClass("dne");
+		copy.attr("id", idToBeDisplayed);
+		htmlString = "<div class=\"text-wrapper\"><div class=\"content-description\">" +
+		"<h3>" + allTheContent[idToBeDisplayed].title + "</h3>" +
+		"<p>" + allTheContent[idToBeDisplayed].description + "</p>" +
+		"<p>Hotkey:" + allTheContent[idToBeDisplayed].hotkey + "</p>"					  
+		;			
+			
+		//If it's a template then add the input tags.
+		if (allTheContent[idToBeDisplayed].type == "Template") {
+			htmlString += allTheContent[idToBeDisplayed].build_inputs; // Get the content object's instructions on how to build the appropriate input boxes.
+		}
+		htmlString += "</div> <div class=\"btn\">	<a  href=\"#\">Get Code</a>	</div></div> <div class=\"content-picture\">" +
+		"<img src=\"" + allTheContent[idToBeDisplayed].image_name + "\"></div>";
+		copy.html(htmlString);
+			
+		// Enable the get code buttons
+		copy.on( "click", ".btn", function() {
+		
+		if (allTheContent[idToBeDisplayed].type == "Template") {
+			code = allTheContent[idToBeDisplayed].getCode($('#inputsDiv'+idToBeDisplayed).children('p').children('input')); // The 'Template' type requires an array containing the input boxes.
+			} else {
+				code = allTheContent[idToBeDisplayed].getCode();
+			}
+			document.getElementById("waplot-box").value = code;	
+		});
+			
+		$('.content-wrapper').append(copy);
+		return;
+	} // End appendContent()	 
+	
+
+    menu_a.click(function(e) {
+        e.preventDefault();
+        if(!$(this).hasClass('active')) {
+            menu_a.removeClass('active');
+            //menu_ul.filter(':visible').slideUp('normal');
+            $(this).addClass('active').next().stop(true,true).slideDown('normal');
+			
+        } else {
+            $(this).removeClass('active');
+            $(this).next().stop(true,true).slideUp('normal');
+        }
+		
+		var category = $(this).attr('id');
+				
+		// First find all the content objects of the clicked on type
+		var listOfRequestedContent = [];
+		for (var i in allTheContent) {
+			if (category == allTheContent[i].type) {
+				listOfRequestedContent.push(allTheContent[i]);	
+			}
+		}
+		
+		var listOfIds = [];
+		for (var i in listOfRequestedContent) {
+			listOfIds.push(listOfRequestedContent[i].id);
+		}
+		replaceAndDisplayContent(listOfIds);
+		
+		return; 
+		
+    });
+	
+	// Make the function highlight the content associated with the clicked on link. 
+	// This probably will not work because the sub_items are added dynamically. Need to use onClick or sumtin'
+	sub_item.click(function(e) {
+		
+	});
+	 // End old navBar.js
+	 //********************************************
+	
+	// Enable the search button and define how it searches.
+	$('#search').click(function() {
+		 var searchTerm = '' + $( "#search-input" ).val();
+		 var searchRegex = new RegExp(searchTerm);
+		 var hits = []; // The list of matches
+		 
+		 for (var i in allTheContent) {
+			// Look at the description and the keywords 
+			if (searchRegex.test(allTheContent[i].description) || searchRegex.test(allTheContent[i].keywords)) {
+				hits.push(allTheContent[i]);
+			}			
+		 }
+		 populateNavBar(hits);
+		 
+		 return;
+	 });  
+	
+	// Populate the navBar with all the content
+	populateNavBar(allTheContent);
+}	
+
+$(document).ready(main);	
+	
+
+	
+
+
